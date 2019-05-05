@@ -1,0 +1,14 @@
+repositories {
+  jcenter()
+
+  maven {
+    url  "https://dl.bintray.com/onfido/maven"
+  }
+}
+dependencies {
+  compile 'com.onfido.sdk.capture:onfido-capture-sdk:+'
+
+  compile ('com.google.android.gms:play-services-base:+') {
+      exclude group: 'com.android.support' // to avoid conflicts with your current support library
+    }
+}

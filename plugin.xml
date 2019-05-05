@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="onfido-cordova-plugin"
+    version="1.0.0">
+    <name>OnFido</name>
+    <description>Cordova plugin for OnFido</description>
+    <license></license>
+    <keywords>onfido,onfido-cordova,onfido-plugin,onfido-cordova-ios,onfido-cordova-android</keywords>
+    <repo>https://github.com/ihor-zhvanko/cordova-plugin-onfido</repo>
+
+    <!-- <engines>
+      <engine name="cordova" version=">=6.4.0" />
+      <engine name="cordova-android" version=">=4.0.0" />
+      <engine name="cordova-ios" version=">=4.3.1" />
+    </engines> -->
+
+    <js-module name="OnFido" src="www/onfido.js">
+        <clobbers target="onfido" />
+        <clobbers target="cordova.plugins.onfido" />
+        <clobbers target="plugin.onfido" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.plugin.onfido.OnfidoActivity"
+                      android:label="Onfido Activity">
+                <intent-filter>
+                    <!-- We are going to use this name to start the activity later in Java -->
+                    <action android:name="com.plugin.onfido.OnfidoActivity" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+        </config-file>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="OnFido">
+          <param name="android-package" value="com.plugin.onfido.OnFidoBridge" />
+          <param name="android-package-OnfidoActivity" value="com.plugin.onfido.OnfidoActivity" />
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/OnFidoBridge.java" target-dir="src/com/plugin/onfido" />
+      <source-file src="src/android/OnfidoActivity.java" target-dir="src/com/plugin/onfido" />
+      <framework src="src/android/onfido.gradle" custom="true" type="gradleReference" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="OnFido">
+                <param name="ios-package" value="OnFidoBridge" onload="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+          <string>Required for document and facial capture</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+          <string>Required for video capture</string>
+        </config-file>
+
+        <header-file src="src/ios/OnFidoBridge.h" />
+        <source-file src="src/ios/OnFidoBridge.m" />
+
+        <pods-config ios-min-version="9.0" use-frameworks="true"/>
+        <framework src="Onfido" type="podspec" spec=""/>
+    </platform>
+</plugin>
