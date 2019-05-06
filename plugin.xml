@@ -15,7 +15,7 @@
       <engine name="cordova-ios" version=">=4.3.1" />
     </engines> -->
 
-    <js-module name="OnFido" src="www/onfido.js">
+    <js-module name="Onfido" src="www/onfido.js">
         <clobbers target="onfido"/>
         <clobbers target="cordova.plugins.onfido"/>
         <clobbers target="plugin.onfido"/>
@@ -34,7 +34,7 @@
             </activity>
         </config-file>
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="OnFido">
+            <feature name="Onfido">
                 <param name="android-package" value="com.plugin.onfido.OnFidoBridge"/>
                 <param name="android-package-OnfidoActivity" value="com.plugin.onfido.OnfidoActivity"/>
                 <param name="onload" value="true"/>
@@ -49,7 +49,7 @@
     <!-- ios -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="OnFido">
+            <feature name="Onfido">
                 <param name="ios-package" value="OnFidoBridge" onload="true"/>
             </feature>
         </config-file>
