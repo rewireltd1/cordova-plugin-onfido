@@ -13,6 +13,8 @@ import com.onfido.android.sdk.capture.Onfido;
 import com.onfido.android.sdk.capture.OnfidoConfig;
 import com.onfido.android.sdk.capture.OnfidoFactory;
 import com.onfido.android.sdk.capture.errors.OnfidoException;
+import com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureVariant;
+import com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep;
 import com.onfido.android.sdk.capture.ui.options.FlowStep;
 import com.onfido.android.sdk.capture.upload.Captures;
 import com.onfido.android.sdk.capture.upload.DocumentSide;
@@ -35,7 +37,8 @@ public class OnfidoActivity extends Activity {
 
         flowStepMapping.put("welcome",FlowStep.WELCOME);
         flowStepMapping.put("document",FlowStep.CAPTURE_DOCUMENT);
-        flowStepMapping.put("face",FlowStep.CAPTURE_FACE);
+        flowStepMapping.put("face", FlowStep.CAPTURE_FACE);
+        flowStepMapping.put("face_video", new FaceCaptureStep(FaceCaptureVariant.VIDEO));
         flowStepMapping.put("final",FlowStep.FINAL);
 
         return flowStepMapping;
