@@ -1,12 +1,11 @@
-
 var exec = require('cordova/exec');
 
-var PLUGIN_NAME = 'OnFido';
+var PLUGIN_NAME = 'Onfido';
 
 var onFido = {
-  initOnfido: function(cb, applicantId) {
-    exec(cb, null, PLUGIN_NAME, 'initOnfido', [applicantId]);
-  }
+    initOnfido: function (cb, options) {
+        exec(cb, null, PLUGIN_NAME, 'initOnfido', [options]);
+    }
 };
 
 module.exports = onFido;

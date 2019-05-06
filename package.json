@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-onfido",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "cordova": {
     "id": "cordova-plugin-onfido",
     "platforms": [
@@ -8,5 +8,5 @@
       "ios"
     ]
   },
-  "description": "A starting point for a OnFido Cordova Plugin"
+  "description": "Onfido Cordova Plugin"
 }
