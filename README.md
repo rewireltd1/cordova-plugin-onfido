@@ -94,16 +94,16 @@ enum DocumentTypes {
     }
 }
 ```
-## NOTES
+### NOTES
 - __IMOPRTANT__: Please note that we are passing the mobile sdk token from javascript but it shouldnt be saved in the javascript bundle!
 in the javascript code we are making authenticated request to our backend to retrieve it. see TODO`s for other methods
 
-## TODO`s
+### TODO`s
 - Passing mobile token from env variable:
     -  Create Cordova hooks that injects Onfido token to config.xml <preference name="onfidoToken" value="INJECT HERE" />
     -  Read token from preferences (how to do that: https://taivo.github.io/guides/read-config-xml-in-cordova)  
 
-## Credit
+### Credits
 - https://github.com/ihor-zhvanko, we used his code from https://github.com/ihor-zhvanko/cordova-plugin-onfido as a starting point 
 
 ## How to Contribute
