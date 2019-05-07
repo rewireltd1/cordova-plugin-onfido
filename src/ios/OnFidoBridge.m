@@ -13,12 +13,17 @@
     NSString* applicantId = [options objectForKey:@"applicant_id"];
     NSString* token = [options objectForKey:@"token"];
     NSArray* flowSteps = [options objectForKey:@"flow_steps"];
-    NSArray* documentTypes = [options objectForKey:@"document_types"];
+    NSArray* documentTypes = [options objectForKey:@"document_types"]; // Not supported yet by Onfido SDK`s
 
     ONFlowConfigBuilder *configBuilder = [ONFlowConfig builder];
 
     [configBuilder withToken:token];
     [configBuilder withApplicantId:applicantId];
+    if([flowSteps containsObject: @"face"]) {
+        [configBuilder withFaceStepOfVariant:ONFaceStepVariantPhoto];
+    } else if([flowSteps containsObject: @"face_video"]) {
+        [configBuilder withFaceStepOfVariant:ONFaceStepVariantVideo];
+    }
     [configBuilder withDocumentStep];
 
     NSError *configError = NULL;
@@ -174,10 +179,6 @@
     [alert addAction:defaultAction];
 
     [self.viewController presentViewController:alert animated:YES completion:nil];
-}
-
-- (NSString*)getMobileSdkToken {
-    return self.commandDelegate.settings[@"onfido-mobile-sdk-token"];
 }
 
 @end
