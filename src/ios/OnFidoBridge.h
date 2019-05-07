@@ -3,6 +3,6 @@
 @interface OnFidoBridge : CDVPlugin {
 }
 
-- (void)initOnfido: (CDVInvokedUrlCommand *)command;
+- (void)init: (CDVInvokedUrlCommand *)command;
 
 @end

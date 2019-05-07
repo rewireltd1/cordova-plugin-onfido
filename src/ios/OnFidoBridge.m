@@ -8,7 +8,7 @@
 - (void)pluginInitialize {
 }
 
-- (void)initOnfido: (CDVInvokedUrlCommand *)command {
+- (void)init: (CDVInvokedUrlCommand *)command {
     NSDictionary* options = [command.arguments objectAtIndex:0];
     NSString* applicantId = [options objectForKey:@"applicant_id"];
     NSString* token = [options objectForKey:@"token"];

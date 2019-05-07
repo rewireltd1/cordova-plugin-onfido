@@ -31,7 +31,7 @@ public class OnFidoBridge extends CordovaPlugin {
   }
 
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-    if(action.equals("initOnfido")) {
+    if(action.equals("init")) {
       this.currentCallbackContext = callbackContext;
       final String token;
       final String applicantId;
