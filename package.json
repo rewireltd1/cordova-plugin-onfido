@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-onfido",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "cordova": {
     "id": "cordova-plugin-onfido",
     "platforms": [
@@ -8,5 +8,22 @@
       "ios"
     ]
   },
-  "description": "Onfido Cordova Plugin"
+  "description": "Cordova plugin for Onfido",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rewireltd1/cordova-onfido-plugin.git"
+  },
+  "keywords": [
+    "onfido",
+    "onfido-cordova",
+    "onfido-plugin",
+    "onfido-cordova-ios",
+    "onfido-cordova-android"
+  ],
+  "author": "Rewire LTD",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rewireltd1/cordova-onfido-plugin/issues"
+  },
+  "homepage": "https://github.com/rewireltd1/cordova-onfido-plugin#readme"
 }
