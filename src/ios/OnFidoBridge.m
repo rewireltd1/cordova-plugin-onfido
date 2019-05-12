@@ -32,8 +32,8 @@
     if (configError == NULL) {
         ONFlow *onFlow = [[ONFlow alloc] initWithFlowConfiguration:config];
 
-        [onFlow withResponseHandler:^(ONFlowResponse* responce){
-            [self handleOnFidoCallback: responce :command.callbackId];
+        [onFlow withResponseHandler:^(ONFlowResponse* response){
+            [self handleOnFidoCallback: response :command.callbackId];
         }];
 
         NSError *runError = NULL;
@@ -84,11 +84,11 @@
     return [[NSString alloc]initWithData:json encoding:NSUTF8StringEncoding];
 }
 
-- (void)handleOnFidoCallback: (ONFlowResponse*) responce : (id) callbackId {
-    if(responce.userCanceled) {
-        CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT messageAsArrayBuffer:nil];
+- (void)handleOnFidoCallback: (ONFlowResponse*) response : (id) callbackId {
+    if(response.userCanceled) {
+        CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT messageAsString:@"User exit"];
         [self.commandDelegate sendPluginResult:result callbackId:callbackId];
-    } else if(responce.results) {
+    } else if(response.results) {
         NSPredicate *documentResultPredicate = [NSPredicate predicateWithBlock:^BOOL(id flowResult, NSDictionary* bindings) {
             if(((ONFlowResult*)flowResult).type == ONFlowResultTypeDocument) {
                 return YES;
@@ -97,15 +97,15 @@
             }
         }];
 
-        NSArray* flowWithDocumentResults = [responce.results filteredArrayUsingPredicate:documentResultPredicate];
+        NSArray* flowWithDocumentResults = [response.results filteredArrayUsingPredicate:documentResultPredicate];
         NSString* documentJson = [self buildDocumentJson:flowWithDocumentResults];
 
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:documentJson];
         [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 
-    } else if(responce.error) {
+    } else if(response.error) {
         //something went wrong
-        [self handleOnFlowError: responce.error :callbackId];
+        [self handleOnFlowError: response.error :callbackId];
     }
     [self.viewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
