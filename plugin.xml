@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="onfido-cordova-plugin"
-        version="1.0.0">
+        version="1.0.2">
     <name>Onfido</name>
     <description>Cordova plugin for Onfido</description>
     <license>MIT</license>
