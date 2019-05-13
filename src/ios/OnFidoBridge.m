@@ -40,9 +40,7 @@
         UIViewController *onfidoController = [onFlow runAndReturnError:&runError];
 
         if (runError == NULL) {
-            [self.commandDelegate runInBackground:^{
-                [self.viewController presentViewController:onfidoController animated:YES completion:NULL];
-            }];
+            [self.viewController presentViewController:onfidoController animated:YES completion:NULL];
         } else {
             [self showAlert:@"Error occured during Onfido flow. Look for details in console"];
         }
