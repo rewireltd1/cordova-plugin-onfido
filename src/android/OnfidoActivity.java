@@ -144,13 +144,19 @@ public class OnfidoActivity extends Activity {
 
             @Override
             public void userExited(ExitCode exitCode, Applicant applicant) {
+                Intent intent = new Intent();
                 Log.d(TAG, "userExited: YES");
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();// Exit of this activity !
             }
 
             @Override
             public void onError(OnfidoException e, Applicant applicant) {
+                Intent intent = new Intent();
                 Log.d(TAG, "onError: YES");
                 e.printStackTrace();
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();// Exit of this activity !
             }
         });
     }
