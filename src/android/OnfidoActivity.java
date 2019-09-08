@@ -18,7 +18,6 @@ import com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep;
 import com.onfido.android.sdk.capture.ui.options.FlowStep;
 import com.onfido.android.sdk.capture.upload.Captures;
 import com.onfido.android.sdk.capture.upload.DocumentSide;
-import com.onfido.api.client.data.Applicant;
 
 import android.util.Log;
 
@@ -31,7 +30,7 @@ public class OnfidoActivity extends Activity {
     private Onfido client;
     private boolean firstTime = true;
     private static final String TAG = "OnFidoBridge";
-
+    
     private Map<String,FlowStep> createMapStringToFlowStep(){
         HashMap flowStepMapping = new HashMap<String, FlowStep>();
 
@@ -76,7 +75,7 @@ public class OnfidoActivity extends Activity {
 
             FlowStep[] flow = generateFlowStep(flowSteps);
 
-            final OnfidoConfig config = OnfidoConfig.builder()
+            final OnfidoConfig config = OnfidoConfig.builder(this)
                     .withToken(token)
                     .withApplicant(applicantId)
                     .withCustomFlow(flow)
@@ -125,7 +124,7 @@ public class OnfidoActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         client.handleActivityResult(resultCode, data, new Onfido.OnfidoResultListener() {
             @Override
-            public void userCompleted(Applicant applicant, Captures captures) {
+            public void userCompleted(Captures captures) {
                 Intent intent = new Intent();
                 JSONObject captureJson;
                 try {
@@ -143,7 +142,7 @@ public class OnfidoActivity extends Activity {
             }
 
             @Override
-            public void userExited(ExitCode exitCode, Applicant applicant) {
+            public void userExited(ExitCode exitCode) {
                 Intent intent = new Intent();
                 Log.d(TAG, "userExited: YES");
                 setResult(Activity.RESULT_CANCELED, intent);
@@ -151,7 +150,7 @@ public class OnfidoActivity extends Activity {
             }
 
             @Override
-            public void onError(OnfidoException e, Applicant applicant) {
+            public void onError(OnfidoException e) {
                 Intent intent = new Intent();
                 Log.d(TAG, "onError: YES");
                 e.printStackTrace();
