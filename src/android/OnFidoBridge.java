@@ -16,8 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.rewire.app.R;
-
 import java.util.ArrayList;
 
 public class OnFidoBridge extends CordovaPlugin {
