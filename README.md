@@ -1,4 +1,4 @@
-# cordova-onfido-plugin
+# cordova-plugin-onfido
 
 This plugin can be used to interact with Onfido native SDK`s through cordova apps.
 
@@ -6,12 +6,12 @@ This plugin can be used to interact with Onfido native SDK`s through cordova app
 
 Get stable version from npm:
 ```bash
- cordova plugin add cordova-onfido-plugin
+ cordova plugin add cordova-plugin-onfido
 ```
 
 Get latest master:
 ```bash
-cordova plugin add https://github.com/rewireltd1/cordova-onfido-plugin
+cordova plugin add https://github.com/rewireltd1/cordova-plugin-onfido
 ```
 
 ## Basic Usage
@@ -108,6 +108,6 @@ in the javascript code we are making authenticated request to our backend to ret
 
 ## How to Contribute
 
-Contributors are welcome! And we need your contributions to keep the project moving forward. You can[report bugs, improve the documentation, or [contribute code](https://github.com/rewireltd1/cordova-onfido-plugin/pulls).
+Contributors are welcome! And we need your contributions to keep the project moving forward. You can[report bugs, improve the documentation, or [contribute code](https://github.com/rewireltd1/cordova-plugin-onfido/pulls).
 
-**Have a solution?** Send a [Pull Request](https://github.com/rewireltd1/cordova-onfido-plugin/pulls).
+**Have a solution?** Send a [Pull Request](https://github.com/rewireltd1/cordova-plugin-onfido/pulls).

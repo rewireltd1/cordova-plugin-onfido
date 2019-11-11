@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="onfido-cordova-plugin"
-        version="1.0.3">
+        id="cordova-plugin-onfido"
+        version="1.0.5">
     <name>Onfido</name>
     <description>Cordova plugin for Onfido</description>
     <license>MIT</license>
     <keywords>onfido,onfido-cordova,onfido-plugin,onfido-cordova-ios,onfido-cordova-android</keywords>
-    <repo>https://github.com/rewireltd1/cordova-onfido-plugin.git</repo>
+    <repo>https://github.com/rewireltd1/cordova-plugin-onfido.git</repo>
 
     <!-- <engines>
       <engine name="cordova" version=">=6.4.0" />
