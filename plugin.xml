@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="cordova-plugin-onfido"
-        version="1.0.5">
+        version="1.0.6">
     <name>Onfido</name>
     <description>Cordova plugin for Onfido</description>
     <license>MIT</license>
@@ -66,6 +66,6 @@
         <source-file src="src/ios/OnFidoBridge.m"/>
 
         <pods-config ios-min-version="9.0" use-frameworks="true"/>
-        <framework src="Onfido" type="podspec" spec=""/>
+        <framework src="Onfido" type="podspec" spec="13.2.0"/>
     </platform>
 </plugin>
