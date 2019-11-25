@@ -19,11 +19,24 @@
 
     [configBuilder withToken:token];
     [configBuilder withApplicantId:applicantId];
+
+    Builder * variantBuilder = [ONFaceStepVariantConfig builder];
+
     if([flowSteps containsObject: @"face"]) {
-        [configBuilder withFaceStepOfVariant:ONFaceStepVariantPhoto];
+        [variantBuilder withPhotoCaptureWithConfig: NULL];
     } else if([flowSteps containsObject: @"face_video"]) {
-        [configBuilder withFaceStepOfVariant:ONFaceStepVariantVideo];
+        [variantBuilder withVideoCaptureWithConfig: NULL];
     }
+
+    NSError * variantError = NULL;
+    [configBuilder withFaceStepOfVariant:[variantBuilder buildAndReturnError: &variantError]];
+
+    if(variantError != NULL)
+    {
+        [self handleConfigsError:variantError :command.callbackId];
+        return ;
+    }
+    
     [configBuilder withDocumentStep];
 
     NSError *configError = NULL;
