@@ -17,19 +17,51 @@
 
     ONFlowConfigBuilder *configBuilder = [ONFlowConfig builder];
 
+    NSDictionary* appearanceOption = options[@"appearance"];
+    NSDictionary* primaryColorOption = appearanceOption[@"primaryColor"];
+    NSDictionary* primaryColorPressedOption = appearanceOption[@"primaryColorPressed"];
+
+    if (primaryColorOption != NULL && primaryColorPressedOption != NULL) {
+        int primaryColorRed = [primaryColorOption[@"red"] integerValue];
+        int primaryColorGreen = [primaryColorOption[@"green"] integerValue];
+        int primaryColorBlue =  [primaryColorOption[@"blue"] integerValue];
+
+        UIColor* primaryColor = [UIColor colorWithRed:primaryColorRed/255.0f
+                                                green:primaryColorGreen/255.0f
+                                                blue:primaryColorBlue/255.0f
+                                                alpha:1.0f];
+        
+        int primaryColorPressedRed = [primaryColorPressedOption[@"red"] integerValue];
+        int primaryColorPressedGreen = [primaryColorPressedOption[@"green"] integerValue];
+        int primaryColorPressedBlue =  [primaryColorPressedOption[@"blue"] integerValue];
+
+        UIColor* primaryColorPressed = [UIColor colorWithRed:primaryColorPressedRed/255.0f
+                                                green:primaryColorPressedGreen/255.0f
+                                                blue:primaryColorPressedBlue/255.0f
+                                                alpha:1.0f];
+
+        ONAppearance *appearance = [[ONAppearance alloc]
+            initWithPrimaryColor:primaryColor
+            primaryTitleColor: [UIColor whiteColor]
+            primaryBackgroundPressedColor:primaryColorPressed
+            supportDarkMode:FALSE];
+
+        [configBuilder withAppearance:appearance];
+    }
+
     [configBuilder withToken:token];
     [configBuilder withApplicantId:applicantId];
 
     Builder * variantBuilder = [ONFaceStepVariantConfig builder];
+    NSError * variantError = NULL;
 
     if([flowSteps containsObject: @"face"]) {
         [variantBuilder withPhotoCaptureWithConfig: NULL];
+        [configBuilder withFaceStepOfVariant:[variantBuilder buildAndReturnError: &variantError]];
     } else if([flowSteps containsObject: @"face_video"]) {
         [variantBuilder withVideoCaptureWithConfig: NULL];
+        [configBuilder withFaceStepOfVariant:[variantBuilder buildAndReturnError: &variantError]];
     }
-
-    NSError * variantError = NULL;
-    [configBuilder withFaceStepOfVariant:[variantBuilder buildAndReturnError: &variantError]];
 
     if(variantError != NULL)
     {
