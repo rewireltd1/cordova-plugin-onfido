@@ -30,7 +30,7 @@ public class OnfidoActivity extends Activity {
     private Onfido client;
     private boolean firstTime = true;
     private static final String TAG = "OnFidoBridge";
-    
+
     private Map<String,FlowStep> createMapStringToFlowStep(){
         HashMap flowStepMapping = new HashMap<String, FlowStep>();
 
@@ -64,11 +64,9 @@ public class OnfidoActivity extends Activity {
             client = OnfidoFactory.create(this).getClient();
 
             Bundle extras = getIntent().getExtras();
-            String applicantId="";
             String token="";
             ArrayList<String> flowSteps=null;
             if (extras != null) {
-                applicantId = extras.getString("applicant_id");
                 token = extras.getString("token");
                 flowSteps = extras.getStringArrayList("flow_steps");
             }
@@ -76,8 +74,7 @@ public class OnfidoActivity extends Activity {
             FlowStep[] flow = generateFlowStep(flowSteps);
 
             final OnfidoConfig config = OnfidoConfig.builder(this)
-                    .withToken(token)
-                    .withApplicant(applicantId)
+                    .withSDKToken(token)
                     .withCustomFlow(flow)
                     .build();
             client.startActivityForResult(this,         /*must be an activity*/
