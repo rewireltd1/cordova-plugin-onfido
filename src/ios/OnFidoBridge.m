@@ -30,7 +30,7 @@
                                                 green:primaryColorGreen/255.0f
                                                 blue:primaryColorBlue/255.0f
                                                 alpha:1.0f];
-        
+
         int primaryColorPressedRed = [primaryColorPressedOption[@"red"] integerValue];
         int primaryColorPressedGreen = [primaryColorPressedOption[@"green"] integerValue];
         int primaryColorPressedBlue =  [primaryColorPressedOption[@"blue"] integerValue];
@@ -63,13 +63,27 @@
         [configBuilder withFaceStepOfVariant:[variantBuilder buildAndReturnError: &variantError]];
     }
 
+    NSString * countryCode = NULL;
+    bool * addedDoc = false;
+    for (countryCode in NSLocale.ISOCountryCodes) {
+        NSString *stringToCheck = @"license.";
+        stringToCheck = [NSString stringWithFormat: @"%@%@", stringToCheck, countryCode.lowercaseString];
+
+        if([flowSteps containsObject: stringToCheck]) {
+            [configBuilder withDocumentStepOfType:ONDocumentTypeDrivingLicence andCountryCode:countryCode];
+            addedDoc = true;
+        }
+    }
+
     if(variantError != NULL)
     {
         [self handleConfigsError:variantError :command.callbackId];
         return ;
     }
-    
-    [configBuilder withDocumentStep];
+
+    if(addedDoc == false) {
+        [configBuilder withDocumentStep];
+    }
 
     NSError *configError = NULL;
     ONFlowConfig *config = [configBuilder buildAndReturnError:&configError];

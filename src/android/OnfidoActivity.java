@@ -40,7 +40,7 @@ public class OnfidoActivity extends Activity {
         flowStepMapping.put("document", FlowStep.CAPTURE_DOCUMENT);
 
         for (CountryCode sCountryCode : CountryCode.values()) {
-            flowStepMapping.put("license." + sCountryCode.getAlpha3().toLowerCase(),
+            flowStepMapping.put("license." + sCountryCode.name().toLowerCase(),
                     new CaptureScreenStep(DocumentType.DRIVING_LICENCE, sCountryCode));
         }
 
