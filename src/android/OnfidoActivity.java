@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.onfido.android.sdk.capture.DocumentType;
 import com.onfido.android.sdk.capture.ExitCode;
 import com.onfido.android.sdk.capture.Onfido;
 import com.onfido.android.sdk.capture.OnfidoConfig;
@@ -15,9 +16,11 @@ import com.onfido.android.sdk.capture.OnfidoFactory;
 import com.onfido.android.sdk.capture.errors.OnfidoException;
 import com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureVariant;
 import com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep;
+import com.onfido.android.sdk.capture.ui.options.CaptureScreenStep;
 import com.onfido.android.sdk.capture.ui.options.FlowStep;
 import com.onfido.android.sdk.capture.upload.Captures;
 import com.onfido.android.sdk.capture.upload.DocumentSide;
+import com.onfido.android.sdk.capture.utils.CountryCode;
 
 import android.util.Log;
 
@@ -25,29 +28,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OnfidoActivity extends Activity {
     private Onfido client;
     private boolean firstTime = true;
     private static final String TAG = "OnFidoBridge";
-    
-    private Map<String,FlowStep> createMapStringToFlowStep(){
+
+    private Map<String, FlowStep> createMapStringToFlowStep() {
         HashMap flowStepMapping = new HashMap<String, FlowStep>();
 
-        flowStepMapping.put("welcome",FlowStep.WELCOME);
-        flowStepMapping.put("document",FlowStep.CAPTURE_DOCUMENT);
+        flowStepMapping.put("welcome", FlowStep.WELCOME);
+        flowStepMapping.put("document", FlowStep.CAPTURE_DOCUMENT);
+
+        for (CountryCode sCountryCode : CountryCode.values()) {
+            flowStepMapping.put("license." + sCountryCode.name().toLowerCase(),
+                    new CaptureScreenStep(DocumentType.DRIVING_LICENCE, sCountryCode));
+        }
+
         flowStepMapping.put("face", FlowStep.CAPTURE_FACE);
         flowStepMapping.put("face_video", new FaceCaptureStep(FaceCaptureVariant.VIDEO));
-        flowStepMapping.put("final",FlowStep.FINAL);
+        flowStepMapping.put("final", FlowStep.FINAL);
 
         return flowStepMapping;
     }
 
-    private FlowStep[] generateFlowStep(ArrayList<String> flowSteps){
-        Map<String,FlowStep> mapping = createMapStringToFlowStep();
+    private FlowStep[] generateFlowStep(ArrayList<String> flowSteps) {
+        Map<String, FlowStep> mapping = createMapStringToFlowStep();
         FlowStep[] steps = new FlowStep[flowSteps.size()];
 
-        for (int i = 0 ; i < flowSteps.size() ; i++) {
+        for (int i = 0; i < flowSteps.size(); i++) {
             steps[i] = mapping.get(flowSteps.get(i));
         }
 
@@ -64,9 +72,9 @@ public class OnfidoActivity extends Activity {
             client = OnfidoFactory.create(this).getClient();
 
             Bundle extras = getIntent().getExtras();
-            String applicantId="";
-            String token="";
-            ArrayList<String> flowSteps=null;
+            String applicantId = "";
+            String token = "";
+            ArrayList<String> flowSteps = null;
             if (extras != null) {
                 applicantId = extras.getString("applicant_id");
                 token = extras.getString("token");
@@ -75,13 +83,13 @@ public class OnfidoActivity extends Activity {
 
             FlowStep[] flow = generateFlowStep(flowSteps);
 
-            final OnfidoConfig config = OnfidoConfig.builder(this)
-                    .withToken(token)
-                    .withApplicant(applicantId)
-                    .withCustomFlow(flow)
-                    .build();
-            client.startActivityForResult(this,         /*must be an activity*/
-                    1,            /*this request code will be important for you on onActivityResult() to identity the onfido callback*/
+            final OnfidoConfig config = OnfidoConfig.builder(this).withToken(token).withApplicant(applicantId)
+                    .withCustomFlow(flow).build();
+            client.startActivityForResult(this, /* must be an activity */
+                    1, /*
+                        * this request code will be important for you on onActivityResult() to identity
+                        * the onfido callback
+                        */
                     config);
         }
     }

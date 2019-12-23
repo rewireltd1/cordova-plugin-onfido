@@ -6,7 +6,7 @@ repositories {
   }
 }
 dependencies {
-  compile 'com.onfido.sdk.capture:onfido-capture-sdk:5.2.0'
+  compile 'com.onfido.sdk.capture:onfido-capture-sdk:5.3.1'
 
   compile ('com.google.android.gms:play-services-base:+') {
       exclude group: 'com.android.support' // to avoid conflicts with your current support library
