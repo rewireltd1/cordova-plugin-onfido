@@ -33,13 +33,20 @@ public class OnFidoBridge extends CordovaPlugin {
       this.currentCallbackContext = callbackContext;
       final String token;
       final String applicantId;
+      String documentType;
       final ArrayList flowSteps = new ArrayList<String>();
       JSONArray flowStepsArray;
+
 
       try {
         JSONObject options = args.getJSONObject(0);
         token = options.getString("token");
         applicantId = options.getString("applicant_id");
+        try {
+          documentType = options.getString("document_type");
+        } catch (JSONException e) {
+          documentType = "";
+        }
         flowStepsArray = options.getJSONArray("flow_steps");
         for (int i = 0; i < flowStepsArray.length(); i++) {
           flowSteps.add(flowStepsArray.getString(i));
@@ -52,6 +59,7 @@ public class OnFidoBridge extends CordovaPlugin {
       Intent intent = new Intent("com.plugin.onfido.OnfidoActivity");
       intent.putExtra("token", token);
       intent.putExtra("applicant_id", applicantId);
+      intent.putExtra("document_type", documentType);
       intent.putExtra("flow_steps", flowSteps);
       cordova.startActivityForResult(this, intent, 1);
     }
