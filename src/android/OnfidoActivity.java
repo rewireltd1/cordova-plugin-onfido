@@ -27,6 +27,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.*;
 
 
 public class OnfidoActivity extends Activity {
@@ -83,12 +84,14 @@ public class OnfidoActivity extends Activity {
             String applicantId="";
             String token="";
             String documentType="";
+            String locale = "en";
             ArrayList<String> flowSteps=null;
             if (extras != null) {
                 applicantId = extras.getString("applicant_id");
                 documentType = extras.getString("document_type");
                 token = extras.getString("token");
                 flowSteps = extras.getStringArrayList("flow_steps");
+                locale = extras.getString("locale");
             }
 
             FlowStep[] flow = generateFlowStep(flowSteps, DocumentTypesMap.get(documentType));
@@ -97,6 +100,7 @@ public class OnfidoActivity extends Activity {
                     .withToken(token)
                     .withApplicant(applicantId)
                     .withCustomFlow(flow)
+                    .withLocale(new Locale(locale))
                     .build();
             client.startActivityForResult(this,         /*must be an activity*/
                     1,            /*this request code will be important for you on onActivityResult() to identity the onfido callback*/

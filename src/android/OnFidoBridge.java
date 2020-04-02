@@ -33,6 +33,7 @@ public class OnFidoBridge extends CordovaPlugin {
       this.currentCallbackContext = callbackContext;
       final String token;
       final String applicantId;
+      String locale;
       String documentType;
       final ArrayList flowSteps = new ArrayList<String>();
       JSONArray flowStepsArray;
@@ -41,6 +42,11 @@ public class OnFidoBridge extends CordovaPlugin {
       try {
         JSONObject options = args.getJSONObject(0);
         token = options.getString("token");
+        try {
+          locale = options.getString("locale");
+        } catch (JSONException e) {
+          locale = "en";
+        }
         applicantId = options.getString("applicant_id");
         try {
           documentType = options.getString("document_type");
@@ -61,6 +67,7 @@ public class OnFidoBridge extends CordovaPlugin {
       intent.putExtra("applicant_id", applicantId);
       intent.putExtra("document_type", documentType);
       intent.putExtra("flow_steps", flowSteps);
+      intent.putExtra("locale", locale);
       cordova.startActivityForResult(this, intent, 1);
     }
     return true;
