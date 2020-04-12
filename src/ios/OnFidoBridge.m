@@ -12,6 +12,7 @@
     NSDictionary* options = [command.arguments objectAtIndex:0];
     NSString* applicantId = [options objectForKey:@"applicant_id"];
     NSString* token = [options objectForKey:@"token"];
+    NSString* locale = [options objectForKey:@"locale"];
     NSArray* flowSteps = [options objectForKey:@"flow_steps"];
     NSArray* documentTypes = [options objectForKey:@"document_types"]; // Not supported yet by Onfido SDK`s
 
@@ -51,6 +52,17 @@
 
     [configBuilder withToken:token];
     [configBuilder withApplicantId:applicantId];
+    
+    if (locale != NULL){
+        NSString * path = [[NSBundle mainBundle] pathForResource:locale ofType:@"lproj"];
+        NSBundle * bundle = nil;
+        if(path == nil){
+            bundle = [NSBundle mainBundle];
+        }else{
+            bundle = [NSBundle bundleWithPath:path];
+        }
+        [configBuilder withCustomLocalizationWithTableName:@"Localizable" in: bundle];
+    }
 
     Builder * variantBuilder = [ONFaceStepVariantConfig builder];
     NSError * variantError = NULL;
