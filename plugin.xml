@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="cordova-plugin-onfido"
-        version="1.1.5">
+        version="1.1.2">
     <name>Onfido</name>
     <description>Cordova plugin for Onfido</description>
     <license>MIT</license>
@@ -21,17 +21,17 @@
         <clobbers target="plugin.onfido"/>
     </js-module>
 
-    <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
-        <activity android:name="com.plugin.onfido.OnfidoActivity" android:label="Onfido Activity">
-            <intent-filter>
-                <action android:name="com.plugin.onfido.OnfidoActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-    </config-file>
-
     <!-- android -->
     <platform name="android">
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.plugin.onfido.OnfidoActivity" android:label="Onfido Activity">
+                <intent-filter>
+                    <action android:name="com.plugin.onfido.OnfidoActivity"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                </intent-filter>
+            </activity>
+        </config-file>
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Onfido">
                 <param name="android-package" value="com.plugin.onfido.OnFidoBridge"/>
@@ -64,7 +64,13 @@
         <header-file src="src/ios/OnFidoBridge.h"/>
         <source-file src="src/ios/OnFidoBridge.m"/>
 
-        <pods-config ios-min-version="9.0" use-frameworks="true"/>
-        <framework src="Onfido" type="podspec" spec="13.2.0"/>
+        <podspec use-frameworks="true">
+            <config>
+                <source url="https://cdn.cocoapods.org/"/>
+            </config>
+            <pods>
+                <pod name="Onfido" spec="13.2.0"/>
+            </pods>
+        </podspec>
     </platform>
 </plugin>
