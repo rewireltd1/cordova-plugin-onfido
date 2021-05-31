@@ -54,7 +54,7 @@
     [configBuilder withApplicantId:applicantId];
     
     if (locale != NULL){
-        NSString * path = [[NSBundle mainBundle] pathForResource:locale ofType:@"lproj"];
+        NSString * path = [[NSBundle bundleForClass:[ONFlowConfig class]] pathForResource:locale ofType:@"lproj"];
         NSBundle * bundle = nil;
         if(path == nil){
             bundle = [NSBundle mainBundle];
