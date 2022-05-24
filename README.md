@@ -106,6 +106,11 @@ in the javascript code we are making authenticated request to our backend to ret
 ### Credits
 - https://github.com/ihor-zhvanko, we used his code from https://github.com/ihor-zhvanko/cordova-plugin-onfido as a starting point 
 
+## License
+
+Copyright 2022 Rewire (O.S.G) Research and Development Ltd. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"), see [LICENSE](https://github.com/rewireltd1/cordova-plugin-onfido/blob/master/LICENSE).
+
 ## How to Contribute
 
 Contributors are welcome! And we need your contributions to keep the project moving forward. You can[report bugs, improve the documentation, or [contribute code](https://github.com/rewireltd1/cordova-plugin-onfido/pulls).
